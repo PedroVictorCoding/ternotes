@@ -13,9 +13,9 @@ print(new_note_path)
 print("Args: " + str(args))
 
 if args[1] == "--help" or args[1] == "-h":
-    print("Use: notes [title] [category] [YYYY] [mm] [dd] ")
-else:
-
+    print("Create notes: notes [title] [category] [YYYY] [mm] [dd] [tag1] [tag2] [tagn]")
+    print("Find notes: notes find [title or tag] [tagn]")
+else if len(args) >= 5:
     if not os.path.exists(new_note_path):
         os.makedirs(new_note_path)
     os.system("krita ~/ternotes/notes/base.kra --export --export-filename ~/ternotes/notes/" + args[2] + "/" + args[3] + "/" + args[4] + "/" + args[5] + "/" + args[1] + ".kra")
