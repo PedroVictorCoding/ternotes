@@ -7,6 +7,9 @@ args = sys.argv
 current_dir = os.path.dirname(os.path.abspath(__file__))
 base_file = current_dir + "/notes/base.kra"
 
+note_logs = open(current_dir + '/note_logs.json',) 
+data = json.load(note_logs)
+
 print("Args: " + str(args))
 
 if args[1] == "--help" or args[1] == "-h":
@@ -16,7 +19,7 @@ if args[1] == "--help" or args[1] == "-h":
     print("Attributes with * are required")
 
 elif args[1] == "open":
-    note_logs = open('noteLogs.json') 
+    note_logs = open(current_dir + '/note_logs.json') 
     data = json.load(note_logs)
     j = 0
     while j < len(data["notes"]):
@@ -27,7 +30,7 @@ elif args[1] == "open":
         j+=1
 
 elif args[1] == "find":
-    note_logs = open('noteLogs.json') 
+    note_logs = open(current_dir + '/note_logs.json') 
     data = json.load(note_logs)
     print(len(data["notes"]))
     i = 0
@@ -42,6 +45,8 @@ elif args[1] == "find":
 
     else:
         while i <= search_terms:
+            note_logs = open(current_dir + '/note_logs.json') 
+            data = json.load(note_logs)
             if "category:" in args[i]:
                 entered_search = args[i]
                 search = re.sub('category:', '', entered_search)
@@ -58,6 +63,8 @@ elif args[1] == "find":
                     j += 1 
 
             elif "title:" in args[i]:
+                note_logs = open(current_dir + '/note_logs.json') 
+                data = json.load(note_logs)
                 entered_search = args[i]
                 search = re.sub('title:', '', entered_search)
                 print("Searched title:", search)
@@ -86,15 +93,13 @@ elif args[1] == "find":
 
 
 elif args[1] == "create":
-    note_logs = open('noteLogs.json') 
-    data = json.load(note_logs)
     new_note_path = current_dir + "/notes/" + str(args[3]) + "/" + str(args[4]) + "/" + str(args[5]) + "/" + str(args[6]) + "/"
     if not os.path.exists(new_note_path):
         os.makedirs(new_note_path)
     os.system("krita ~/ternotes/notes/base.kra --export --export-filename ~/ternotes/notes/" + args[3] + "/" + args[4] + "/" + args[5] + "/" + args[6] + "/" + args[2] + ".kra")
     os.system("krita --nosplash  ~/ternotes/notes/" + args[3] + "/" + args[4] + "/" + args[5] + "/" + args[6] + "/" + args[2] + ".kra")
 
-    note_log_location = current_dir + "/noteLogs.json"
+    note_log_location = current_dir + "/note_logs.json"
 
     with open(note_log_location, "r+", encoding = "utf-8") as note_log_file:
         note_log_file.seek(0, os.SEEK_END)
