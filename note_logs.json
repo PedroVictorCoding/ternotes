@@ -1,5 +1,9 @@
+es find [category:(category)] or [title:(title) or tag:(tag)] or []
+Open notes: notes open [id]
+Attributes with * are required
+(venv) pedro@pedro:~$ 
+
 {
     "notes":[
-        {},
-		{"id": "0", "category":"tests", "title":"test1", "location":"~/ternotes/notes/tests/2020/10/13/test1.kra", "date":"2020/10/13"}
+        {}
 ]}
